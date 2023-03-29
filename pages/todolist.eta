@@ -1,0 +1,44 @@
+<% layout('./layout.eta') %>
+<div class="table striped">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-indigo-200">
+                <td colspan="4">
+                    <form method="POST" action="/item" class="form-group">
+                        <input name="title" type="text" class="form-group-input" placeholder="New To Do">
+                        <input type="submit" class="form-group-btn" value="Add">
+                    </form>
+                </td>
+            </tr>
+            <% it.todo.forEach((item) => {%>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.title %></td>
+                    <% if(item.done) { %>
+                    <td>Complete</td>
+                    <% } else { %>
+                    <td>Incomplete</td>
+                    <% } %>
+                    <td>
+                        <div class="btn-group">
+                        <% if(item.done) { %>
+                            <a class="btn bg-blue-300 text-blue-600" href='/item/<%= item.id %>/incomplete'>Toggle</a>
+                        <% } else { %>
+                            <a class="btn bg-blue-300 text-blue-600" href='/item/<%= item.id %>/complete'>Toggle</a>
+                        <% } %>
+                            <a class="btn bg-red-300 text-red-600" href='/item/<%= item.id %>/delete'>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
